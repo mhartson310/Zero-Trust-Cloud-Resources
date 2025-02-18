@@ -1,0 +1,76 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "$connections": {
+      "defaultValue": {},
+      "type": "Object"
+    }
+  },
+  "triggers": {
+    "When_NonCompliant_Resource_Detected": {
+      "type": "Request",
+      "kind": "Http",
+      "inputs": {
+        "schema": {}
+      }
+    }
+  },
+  "actions": {
+    "Evaluate_Compliance": {
+      "type": "Http",
+      "inputs": {
+        "method": "GET",
+        "uri": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.PolicyInsights/policyStates/latest/queryResults?api-version=2019-10-01"
+      }
+    },
+    "Enforce_Encryption": {
+      "type": "ApiConnection",
+      "inputs": {
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['azure_management']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/update",
+        "body": {
+          "properties": {
+            "encryption": {
+              "services": {
+                "blob": {
+                  "enabled": true
+                }
+              },
+              "keySource": "Microsoft.Storage"
+            }
+          }
+        }
+      },
+      "runAfter": {
+        "Evaluate_Compliance": ["Succeeded"]
+      }
+    },
+    "Adjust_Access_Controls": {
+      "type": "ApiConnection",
+      "inputs": {
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['azure_management']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Authorization/roleAssignments",
+        "body": {
+          "properties": {
+            "roleDefinitionId": "/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}",
+            "principalId": "{principalId}"
+          }
+        }
+      },
+      "runAfter": {
+        "Enforce_Encryption": ["Succeeded"]
+      }
+    }
+  }
+}
