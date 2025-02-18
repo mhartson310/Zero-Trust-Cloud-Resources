@@ -1,0 +1,81 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "$connections": {
+      "defaultValue": {},
+      "type": "Object"
+    }
+  },
+  "triggers": {
+    "When_Incident_Is_Detected": {
+      "type": "Request",
+      "kind": "Http",
+      "inputs": {
+        "schema": {}
+      }
+    }
+  },
+  "actions": {
+    "Isolate_Resource": {
+      "type": "ApiConnection",
+      "inputs": {
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['azure_management']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/deallocate",
+        "body": {}
+      }
+    },
+    "Rotate_Credentials": {
+      "type": "ApiConnection",
+      "inputs": {
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['keyvault']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/secrets/{secretName}/rotate",
+        "body": {}
+      },
+      "runAfter": {
+        "Isolate_Resource": ["Succeeded"]
+      }
+    },
+    "Send_Alert": {
+      "type": "ApiConnection",
+      "inputs": {
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['office365']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/v2/Mail",
+        "body": {
+          "Message": {
+            "Subject": "Incident Response: Automated Incident Handling",
+            "Body": {
+              "ContentType": "Text",
+              "Content": "An incident has been detected. Resources have been isolated, and credentials rotated."
+            },
+            "ToRecipients": [
+              {
+                "EmailAddress": {
+                  "Address": "security.team@example.com"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "runAfter": {
+        "Rotate_Credentials": ["Succeeded"]
+      }
+    }
+  }
+}
