@@ -1,0 +1,71 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "$connections": {
+      "defaultValue": {},
+      "type": "Object"
+    }
+  },
+  "triggers": {
+    "When_an_incident_is_created": {
+      "type": "HttpWebhook",
+      "inputs": {
+        "method": "POST",
+        "uri": "https://your-incidents-endpoint/api/incidents"
+      }
+    }
+  },
+  "actions": {
+    "Analyze_Incident": {
+      "type": "Http",
+      "inputs": {
+        "method": "POST",
+        "uri": "https://api.openai.azure.com/openai/deployments/YOUR_DEPLOYMENT_NAME/completions?api-version=2022-12-01",
+        "headers": {
+          "Content-Type": "application/json",
+          "api-key": "YOUR_API_KEY"
+        },
+        "body": {
+          "prompt": "Summarize this incident: [INSERT INCIDENT DETAILS HERE]",
+          "max_tokens": 150,
+          "temperature": 0.7
+        }
+      },
+      "runAfter": {}
+    },
+    "Send_Alert": {
+      "type": "ApiConnection",
+      "inputs": {
+        "method": "post",
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['office365']['connectionId']"
+          }
+        },
+        "path": "/v2/Mail",
+        "body": {
+          "Message": {
+            "Subject": "Incident Alert: Automated Analysis Complete",
+            "Body": {
+              "ContentType": "Text",
+              "Content": "The incident has been analyzed. Please review the attached analysis."
+            },
+            "ToRecipients": [
+              {
+                "EmailAddress": {
+                  "Address": "security.team@yourdomain.com"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "runAfter": {
+        "Analyze_Incident": [
+          "Succeeded"
+        ]
+      }
+    }
+  }
+}
