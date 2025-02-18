@@ -1,0 +1,85 @@
+{
+  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "$connections": {
+      "defaultValue": {},
+      "type": "Object"
+    }
+  },
+  "triggers": {
+    "Schedule": {
+      "type": "Recurrence",
+      "recurrence": {
+        "frequency": "Week",
+        "interval": 1
+      }
+    }
+  },
+  "actions": {
+    "Check_Backup_Status": {
+      "type": "Http",
+      "inputs": {
+        "method": "GET",
+        "uri": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupStatus?api-version=2016-06-01"
+      }
+    },
+    "Trigger_Recovery_Drill": {
+      "type": "If",
+      "expression": {
+        "equals": [
+          "@{body('Check_Backup_Status')?['backupStatus']}",
+          "Failed"
+        ]
+      },
+      "actions": {
+        "Initiate_Drill": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connection": {
+                "name": "@parameters('$connections')['recoveryServices']['connectionId']"
+              }
+            },
+            "method": "POST",
+            "path": "/backupDrills/initiate",
+            "body": {
+              "vaultName": "{vaultName}"
+            }
+          }
+        }
+      }
+    },
+    "Send_Drill_Notification": {
+      "type": "ApiConnection",
+      "inputs": {
+        "host": {
+          "connection": {
+            "name": "@parameters('$connections')['office365']['connectionId']"
+          }
+        },
+        "method": "post",
+        "path": "/v2/Mail",
+        "body": {
+          "Message": {
+            "Subject": "Backup & Recovery Drill Executed",
+            "Body": {
+              "ContentType": "Text",
+              "Content": "A backup recovery drill was executed. Please review the outcomes."
+            },
+            "ToRecipients": [
+              {
+                "EmailAddress": {
+                  "Address": "it.team@example.com"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "runAfter": {
+        "Trigger_Recovery_Drill": ["Succeeded"]
+      }
+    }
+  }
+}
