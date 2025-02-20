@@ -1,7 +1,5 @@
 # Compliance Framework Deep Dives: A Comprehensive Guide for Cloud Environments
 
-*Version 1.0 | Last Updated: [Insert Date]*
-
 ---
 
 ## 1. Introduction
