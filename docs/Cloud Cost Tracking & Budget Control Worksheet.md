@@ -1,123 +1,111 @@
-# Cloud Cost Tracking & Budget Control Worksheet
+# Cost Tracking & Budget Control Worksheet for Azure Security and Zero Trust Initiatives
 
-**Project:** [Enter Project Title]  
-**Date:** [Enter Date]
 
-This worksheet is designed to help you monitor, manage, and control cloud costs while implementing security and Zero Trust best practices in Azure. By tracking your costs against your budget and calculating ROI, you can ensure that your investments in security yield measurable benefits. Use this tool to identify cost variances, plan future expenditures, and optimize operational efficiency.
+## Overview
 
----
+This **Cost Tracking & Budget Control Worksheet** is designed to monitor Azure cloud costs, compare actual expenditures with budgeted amounts, and analyze the cost efficiency of security and Zero Trust initiatives. It’s built for sharing on both a blog and GitHub, aligning with plans to develop an Azure cost savings tool using Python and Azure. The current date is **February 21, 2025**, and this worksheet reflects up-to-date pricing and strategies.
 
-## 1. Initial Costs
-_These are one-time costs incurred during the initial deployment of your cloud security and Zero Trust infrastructure._
-
-| #  | Cost Category          | Description                                                  | Estimated Cost ($) | Notes                                |
-|----|------------------------|--------------------------------------------------------------|--------------------|--------------------------------------|
-| 1  | Infrastructure Setup   | Provisioning of VMs, VNets, Storage Accounts, etc.           | $                  | One-time deployment cost             |
-| 2  | Licensing & Subscriptions | Azure AD Premium, Security Center, etc. licenses            | $                  | One-time fees or initial license purchase |
-| 3  | Development & Testing  | Engineering hours for playbooks, ARM templates, integrations   | $                  | Based on hourly rates and time estimates |
-| 4  | Training & Documentation | Training sessions, documentation, knowledge transfer         | $                  | Includes training materials and sessions |
-
-**Total Initial Investment:** $[X]
+### Purpose
+- Monitor cloud costs tied to Azure security and Zero Trust implementations.
+- Compare budgeted vs. actual expenditures.
+- Quantify savings from automation and incident reduction.
+- Calculate ROI and payback periods for financial justification.
 
 ---
 
-## 2. Ongoing Costs
+## Key Areas
 
-### A. Monthly Recurring Costs
-_These costs occur every month and include operational expenses for maintaining your cloud security and Zero Trust posture._
+### 1. Initial and Ongoing Costs
+Tracks one-time setup and recurring subscription costs for Azure services critical to Zero Trust, such as Azure AD, Microsoft Intune, and Azure Firewall.
 
-| #  | Cost Category              | Description                                                   | Monthly Cost ($) | Notes                                  |
-|----|----------------------------|---------------------------------------------------------------|------------------|----------------------------------------|
-| 1  | Maintenance & Monitoring   | Azure Monitor, Log Analytics, Sentinel, etc.                  | $                | Based on data ingestion and alerting   |
-| 2  | Licensing Renewals         | Recurring fees for Azure AD Premium, Security Center, etc.     | $                | Depends on active users and services   |
-| 3  | Operational Overhead       | Staff time for incident response, audits, policy updates         | $                | Estimate based on hours x rate         |
-| 4  | Backup & Disaster Recovery | Azure Backup, Recovery Services Vault costs                     | $                | Based on storage consumption and frequency |
+### 2. Monthly/Quarterly Expenditure Reports
+Provides a framework for periodic cost tracking and variance analysis.
 
-**Total Monthly Ongoing Cost:** $[Y]
+### 3. Savings from Automation and Incident Reduction
+Measures financial benefits from reduced security incidents and automated processes.
 
-### B. Annual Recurring Costs
-_Calculate the annual costs based on your monthly figures or from your vendor contracts._
-
-| #  | Cost Category              | Annual Cost ($) | Notes                                        |
-|----|----------------------------|-----------------|----------------------------------------------|
-| 1  | Maintenance & Monitoring   | $[Y * 12]      | Derived from monthly costs                   |
-| 2  | Licensing Renewals         | $               | Annual fees, if billed yearly                |
-| 3  | Operational Overhead       | $               | Based on estimated monthly overhead          |
-| 4  | Backup & DR                | $               | Annual costs for backup and recovery services  |
-
-**Total Annual Ongoing Cost:** $[Y * 12] (or as calculated)
+### 4. ROI Calculations and Payback Periods
+Evaluates the return on investment and time to break even for security initiatives.
 
 ---
 
-## 3. Monthly Expenditure Report
-_Track your monthly expenses compared to your budget._
+## Worksheet Structure
 
-| Month     | Budgeted Cost ($) | Actual Cost ($) | Variance ($) | % Variance | Key Variances/Notes                             |
-|-----------|-------------------|-----------------|--------------|------------|-------------------------------------------------|
-| January   | $10,000           | $9,500          | -$500        | -5%        | Slight under-budget; cost-saving measures in place. |
-| February  | $10,000           | $10,200         | +$200        | +2%        | Minor overrun due to increased monitoring usage.    |
-| March     | $10,000           | $9,800          | -$200        | -2%        | Stable consumption; within acceptable limits.       |
-| April     | $10,000           | $10,100         | +$100        | +1%        | Minimal variance; review traffic patterns.          |
-| ...       | ...               | ...             | ...          | ...        | ...                                             |
+### Cost Tracking Section
 
-*Note: Update this report monthly to monitor cost performance and adjust forecasts.*
+#### Service Costs
+| **Service**           | **Description**               | **Pricing Tier** | **Number of Units** | **Cost per Unit (Monthly)** | **Total Monthly Cost** |
+|-----------------------|-------------------------------|------------------|---------------------|----------------------------|------------------------|
+| Azure AD              | Identity & Access Management  | P1               | [Users]             | $6/user/month             | [Total]                |
+| Microsoft Intune      | Device Management            | Plan 1           | [Users]             | $6.50/user/month          | [Total]                |
+| Azure Firewall        | Network Security             | Standard         | [Instances]         | $1,250/month + $0.065/GB  | [Total incl. data]     |
+| Azure DDoS Protection | DDoS Protection              | Network          | [Plans]             | $1,500/month              | [Total]                |
+| Azure Monitor         | Monitoring & Logging         | Pay-as-you-go    | -                   | Variable (data-based)     | [To be calculated]     |
+| Azure Key Vault       | Encryption Key Management    | Standard         | [Vaults]            | Variable (ops/storage)    | [To be calculated]     |
 
----
+#### Budget vs. Actual Costs
+| **Month** | **Budgeted Total Cost** | **Actual Total Cost** | **Variance** |
+|-----------|-------------------------|-----------------------|--------------|
+| Jan 2025  | [Amount]                | [Amount]              | [Difference] |
+| Feb 2025  | [Amount]                | [Amount]              | [Difference] |
+| ...       | ...                     | ...                   | ...          |
 
-## 4. Service-Level Cost Breakdown
-_A detailed breakdown of costs by key service categories to help identify major cost drivers._
+#### Variable Cost Tracking
+| **Service**   | **Data Type**   | **Data Amount** | **Cost per Unit** | **Total Cost** |
+|---------------|-----------------|-----------------|-------------------|----------------|
+| Azure Monitor | Data Ingestion  | [GB]            | $0.05/GB          | [Total]        |
+| Azure Firewall| Data Processed  | [GB]            | $0.065/GB         | [Total]        |
+| ...           | ...             | ...             | ...               | ...            |
 
-| Service Category | Description                                        | Monthly Cost ($) | Annual Cost ($) | Notes                                    |
-|------------------|----------------------------------------------------|------------------|-----------------|------------------------------------------|
-| Compute          | VMs, Containers, Kubernetes clusters               | $                | $               | Includes auto-scaling and reserved instances savings. |
-| Storage          | Storage Accounts, Data Lakes, Blob storage           | $                | $               | Varies by redundancy and access frequency.            |
-| Networking       | VNets, NSGs, Azure Firewall, DDoS protection           | $                | $               | Includes bandwidth, traffic egress, and firewall costs. |
-| Identity         | Azure AD, PIM, Conditional Access                     | $                | $               | Based on active user count and policy enforcement.     |
-| AI/ML            | AI Workspaces, Model Training, Cognitive Services      | $                | $               | Varies by usage and processing needs.                  |
-| Monitoring       | Log Analytics, Azure Monitor, Sentinel                 | $                | $               | Data ingestion-based pricing.                          |
-
-*Note: Use Azure Cost Management to obtain actual cost figures and update these tables regularly.*
-
----
-
-## 5. ROI & Savings Analysis
-_Analyze the financial benefits of your cloud security and Zero Trust initiatives._
-
-**Calculations:**
-- **Total Initial Investment:** $[X]
-- **Monthly Ongoing Costs:** $[Y]
-- **Estimated Annual Ongoing Costs:** $[Y * 12]
-- **Estimated Annual Savings:** $[Z] (savings from reduced incidents, increased automation efficiency, etc.)
-- **ROI Calculation:**
-  \[
-  ROI = \frac{(\text{Annual Savings} - \text{Annual Ongoing Costs})}{\text{Total Initial Investment}} \times 100\%
-  \]
-- **Payback Period (in months):**
-  \[
-  \text{Payback Period} = \frac{\text{Total Initial Investment} + \text{Annual Ongoing Costs}}{\text{Annual Savings}} \times 12
-  \]
-
-**Key Metrics to Track:**
-- Reduction in security incidents (pre- vs. post-implementation)
-- Mean Time to Respond (MTTR)
-- Compliance audit improvements
-- Cost savings from automation and operational efficiencies
+> **Note:** Variable costs (e.g., Azure Monitor, Azure Firewall) fluctuate based on data usage—track these closely for accurate budgeting.
 
 ---
 
-## 6. Additional Notes & Assumptions
-- **Assumptions:**  
-  - Cost estimates based on current Azure pricing models.
-  - Operational overhead is estimated based on historical data.
-  - Savings estimates derived from reduced incident response times and increased automation.
-- **Risks:**  
-  - Consumption variability may lead to cost fluctuations.
-  - Unexpected integration challenges may delay ROI realization.
-- **Next Steps:**  
-  - Validate estimates with a pilot deployment.
-  - Regularly review and update cost data.
-  - Integrate with Azure Cost Management for automated, real-time cost tracking.
+### Savings from Automation and Incident Reduction Section
+
+#### Security Incidents
+| **Period**                     | **Number of Incidents** | **Avg Cost per Incident** | **Total Cost** |
+|--------------------------------|-------------------------|---------------------------|----------------|
+| Before Implementation (avg/mo) | [Number]                | [Cost]                    | [Total]        |
+| After Implementation (Month 1) | [Number]                | [Cost]                    | [Total]        |
+| After Implementation (Month 2) | [Number]                | [Cost]                    | [Total]        |
+| ...                            | ...                     | ...                       | ...            |
+
+- **Savings Calculation:** Difference between "Before" and "After" total costs per month.
+
+#### Automation Savings
+| **Automated Process** | **Time Saved per Task (hrs)** | **Tasks per Month** | **Cost per Hour** | **Total Savings/Month** |
+|-----------------------|-------------------------------|---------------------|-------------------|-------------------------|
+| User Account Creation | [Hours]                       | [Number]            | [Cost]            | [Total]                 |
+| Patch Management      | [Hours]                       | [Number]            | [Cost]            | [Total]                 |
+| ...                   | ...                           | ...                 | ...               | ...                     |
+
+- **Total Savings/Month:** Sum of incident reduction and automation savings.
 
 ---
 
-*This worksheet is a living document designed to help you monitor cloud costs accurately, compare expenditures against budgets, and calculate the ROI of your security initiatives. Use it to ensure cost efficiency while progressing toward a fully compliant Zero Trust Architecture in Azure.*
+### ROI Calculations Section
+
+1. **Total Investment:** Sum of monthly costs (initial setup + ongoing).
+2. **Total Benefits:** Sum of monthly savings (incidents + automation).
+3. **Simple ROI: ((Total Benefits - Total Investment) / Total Investment) × 100%**
+4. **Payback Period: Total Investment / Monthly Savings (in months)**
+
+- Plot cumulative savings vs. investment for precise timing.
+
+#### Example Calculation
+- **Investment:** $10,000/month × 12 = $120,000/year
+- **Savings:** $2,500/month (incidents) + $1,000/month (automation) = $3,500/month
+- **ROI:** (($3,500 × 12 - $120,000) / $120,000) × 100% = -65% (year 1, partial recovery)
+- **Payback Period:** $120,000 / $3,500 ≈ 34 months
+
+---
+
+## Implementation Tips
+
+- **Manual Use:** Fill tables manually in Excel or a Markdown editor.
+- **Automation Potential:** Use Python with Azure Cost Management APIs to pull real-time data and calculate metrics.
+- Example:
+```python
+from azure.mgmt.costmanagement import CostManagementClient
+# Authenticate and fetch cost data
